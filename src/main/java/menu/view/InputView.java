@@ -1,11 +1,7 @@
 package menu.view;
 
 public class InputView {
-    private final OutputView outputView;
-
-    public InputView() {
-        this.outputView = new OutputView();
-    }
+    private final OutputView outputView = new OutputView();
 
     public String read(String query) {
         outputView.print(query);
