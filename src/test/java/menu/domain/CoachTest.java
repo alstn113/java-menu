@@ -1,100 +1,77 @@
-package menu.domain;
-
+import menu.domain.Coach;
 import menu.exception.InvalidInputException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Coach 클래스")
-public class CoachTest {
+@DisplayName("Coach 클래스 테스트")
+class CoachTest {
 
     @Nested
-    @DisplayName("생성자")
-    class ConstructorTests {
+    @DisplayName("이름 관련 테스트")
+    class NameTests {
+
         @Test
-        @DisplayName("유효한 이름으로 Coach 객체를 생성할 수 있어야 함")
-        void validName() {
-            // Arrange
-            String validName = "pobi";
-
-            // Act
+        @DisplayName("유효한 이름인 경우")
+        void testValidCoachName() {
+            String validName = "Ali";
             Coach coach = new Coach(validName);
-
-            // Assert
             assertEquals(validName, coach.getName());
         }
 
         @Test
-        @DisplayName("이름이 2자리보다 짧을 경우 InvalidInputException 발생")
-        void nameTooShort() {
-            // Arrange
+        @DisplayName("이름이 너무 짧은 경우 (2글자 미만)")
+        void testInvalidCoachNameShort() {
             String invalidName = "A";
-
-            // Act & Assert
             assertThrows(InvalidInputException.class, () -> new Coach(invalidName));
         }
 
         @Test
-        @DisplayName("이름이 4자리보다 길 경우 InvalidInputException 발생")
-        void nameTooLong() {
-            // Arrange
-            String invalidName = "Alexandra";
-
-            // Act & Assert
+        @DisplayName("이름이 너무 긴 경우 (4글자 초과)")
+        void testInvalidCoachNameLong() {
+            String invalidName = "Alice";
             assertThrows(InvalidInputException.class, () -> new Coach(invalidName));
         }
     }
 
     @Nested
-    @DisplayName("setAvoidMenus 메서드")
-    class SetAvoidMenusTests {
-        @Test
-        @DisplayName("유효한 메뉴 입력으로 Set이 업데이트되어야 함")
-        void validInput() {
-            Coach coach = new Coach("Bob");
-            String validInput = "Sushi,Ramen";
+    @DisplayName("메뉴 제한 관련 테스트")
+    class AvoidMenusTests {
 
+        @Test
+        @DisplayName("유효한 메뉴 목록인 경우")
+        void testValidAvoidMenus() {
+            String validInput = "김치찌개,비빔밥";
+            Coach coach = new Coach("Ali");
             coach.setAvoidMenus(validInput);
-            Set<String> avoidMenus = coach.getAvoidMenus();
 
-            assertTrue(avoidMenus.contains("Sushi"));
-            assertTrue(avoidMenus.contains("Ramen"));
+            assertTrue(coach.isAvoidMenu("김치찌개"));
+            assertTrue(coach.isAvoidMenu("비빔밥"));
         }
 
         @Test
-        @DisplayName("못 먹는 메뉴가 없을 경우 에러가 발생하지 않음")
-        void emptyInput() {
-            // Arrange
-            Coach coach = new Coach("pobi");
-            String emptyInput = "";
-
-            // Act & Assert
-            assertDoesNotThrow(() -> coach.setAvoidMenus(emptyInput));
-        }
-
-        @Test
-        @DisplayName("메뉴가 2개보다 많을 경우 InvalidInputException 발생")
-        void tooManyMenus() {
-            // Arrange
-            Coach coach = new Coach("pobi");
-            String invalidInput = "Burger,Pizza,Sandwich";
-
-            // Act & Assert
+        @DisplayName("메뉴가 너무 많은 경우 (2개 초과)")
+        void testInvalidAvoidMenusTooMany() {
+            String invalidInput = "김치찌개,비빔밥,라면";
+            Coach coach = new Coach("Ali");
             assertThrows(InvalidInputException.class, () -> coach.setAvoidMenus(invalidInput));
         }
 
         @Test
-        @DisplayName("중복된 메뉴가 있으면 InvalidInputException 발생")
-        void duplicateMenus() {
-            // Arrange
-            Coach coach = new Coach("Cali");
-            String invalidInput = "Pasta,Pizza,Pasta";
+        @DisplayName("중복된 메뉴가 있는 경우")
+        void testInvalidAvoidMenusDuplicate() {
+            String invalidInput = "김치찌개,김치찌개";
+            Coach coach = new Coach("Ali");
+            assertThrows(InvalidInputException.class, () -> coach.setAvoidMenus(invalidInput));
+        }
 
-            // Act & Assert
+        @Test
+        @DisplayName("존재하지 않는 메뉴가 있는 경우")
+        void testInvalidAvoidMenuNotExist() {
+            String invalidInput = "김치찌개,라볶이";
+            Coach coach = new Coach("Ali");
             assertThrows(InvalidInputException.class, () -> coach.setAvoidMenus(invalidInput));
         }
     }

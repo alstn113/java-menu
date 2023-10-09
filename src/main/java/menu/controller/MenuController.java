@@ -1,9 +1,13 @@
 package menu.controller;
 
+import menu.domain.Category;
 import menu.domain.Coach;
 import menu.service.MenuService;
 import menu.view.InputView;
 import menu.view.OutputView;
+
+import java.util.List;
+import java.util.Map;
 
 public class MenuController {
     private final InputView inputView;
@@ -21,7 +25,7 @@ public class MenuController {
         setCoachNames();
         setAvoidMenus();
         menuService.recommendMenu();
-        outputView.printMenuRecommendation();
+        printMenuRecommendation();
         outputView.printEndMessage();
     }
 
@@ -39,5 +43,11 @@ public class MenuController {
                 menuService.addAvoidMenus(coach, avoidMenus);
             });
         }
+    }
+
+    private void printMenuRecommendation() {
+        Map<Coach, List<String>> coachMenus = menuService.getCoachMenus();
+        List<Category> categories = menuService.getCategories();
+        outputView.printMenuRecommendation(coachMenus, categories);
     }
 }

@@ -7,6 +7,7 @@ public class InputView {
     private final OutputView outputView = new OutputView();
 
     public String read(String query) {
+        outputView.print("");
         outputView.print(query);
         return Console.readLine();
     }

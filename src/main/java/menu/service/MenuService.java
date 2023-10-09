@@ -9,7 +9,7 @@ import menu.exception.InvalidInputException;
 import java.util.*;
 
 public class MenuService {
-    private Map<Coach, List<String>> coachMenus = new HashMap<>();
+    private Map<Coach, List<String>> coachMenus = new LinkedHashMap<>();
     private List<Category> categories = new ArrayList<>();
 
     public List<Coach> getCoaches() {
