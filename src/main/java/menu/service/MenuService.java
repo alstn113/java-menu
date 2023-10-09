@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuService {
-    private List<Coach> coaches = new ArrayList<Coach>();
+    private List<Coach> coaches = new ArrayList<>();
 
     public MenuService() {
 
