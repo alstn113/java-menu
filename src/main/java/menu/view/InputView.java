@@ -1,5 +1,6 @@
 package menu.view;
 
+import camp.nextstep.edu.missionutils.Console;
 import menu.exception.AppException;
 
 public class InputView {
@@ -7,7 +8,7 @@ public class InputView {
 
     public String read(String query) {
         outputView.print(query);
-        return System.console().readLine();
+        return Console.readLine();
     }
 
     public String readCoachNames() {
@@ -15,7 +16,7 @@ public class InputView {
     }
 
     public String readAvoidMenus(String coachName) {
-        return read(String.format("%s 코치가 피하고 싶은 메뉴를 입력해 주세요. (, 로 구분)", coachName));
+        return read(String.format("%s(이)가 못 먹는 메뉴를 입력해 주세요.", coachName));
     }
 
     public void retryOnException(InputFunction inputFunction) {

@@ -20,6 +20,7 @@ public class MenuController {
         outputView.printStartMessage();
         setCoachNames();
         setAvoidMenus();
+        menuService.recommendMenu();
         outputView.printMenuRecommendation();
         outputView.printEndMessage();
     }
@@ -32,7 +33,7 @@ public class MenuController {
     }
 
     private void setAvoidMenus() {
-        for (Coach coach : menuService.getCoachNames()) {
+        for (Coach coach : menuService.getCoaches()) {
             inputView.retryOnException(() -> {
                 String avoidMenus = inputView.readAvoidMenus(coach.getName());
                 menuService.addAvoidMenus(coach, avoidMenus);

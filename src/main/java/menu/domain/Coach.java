@@ -12,9 +12,10 @@ public class Coach {
     private String name;
     private Set<String> avoidMenus = new HashSet<>();
 
+
     public Coach(String name) {
         this.name = name;
-        validate(name);
+        validateNameLength(name);
     }
 
     public String getName() {
@@ -32,9 +33,6 @@ public class Coach {
         this.avoidMenus.addAll(menus);
     }
 
-    private void validate(String name) {
-        validateNameLength(name);
-    }
 
     private void validateNameLength(String name) {
         if (name.length() < 2 || name.length() > 4) {
@@ -53,7 +51,17 @@ public class Coach {
             throw new InvalidInputException(ErrorMessage.INPUT_MENU_DUPLICATION);
         }
 
+        for (String menu : menus) {
+            if (!Category.isExistingMenu(menu)) {
+                throw new InvalidInputException(ErrorMessage.INVALID_MENU);
+            }
+        }
+
         return Arrays.asList(menus);
+    }
+
+    public boolean isAvoidMenu(String menu) {
+        return this.avoidMenus.contains(menu);
     }
 }
 
