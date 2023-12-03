@@ -1,5 +1,7 @@
 package menu.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import menu.exception.ErrorMessage;
 import menu.exception.InvalidInputException;
 
@@ -7,6 +9,7 @@ public class Coach {
     private static final int MIN_NAME_LENGTH = 2;
     private static final int MAX_NAME_LENGTH = 4;
     private final String name;
+    private List<String> cannotEatMenus = new ArrayList<>();
 
     public Coach(final String name) {
         validate(name);
@@ -26,5 +29,13 @@ public class Coach {
 
     public String getName() {
         return name;
+    }
+
+    public List<String> getCannotEatMenus() {
+        return cannotEatMenus;
+    }
+
+    public void setCannotEatMenus(List<String> cannotEatMenus) {
+        this.cannotEatMenus = new ArrayList<>(cannotEatMenus);
     }
 }

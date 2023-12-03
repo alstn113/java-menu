@@ -1,6 +1,9 @@
 package menu.controller;
 
+import java.util.List;
+import menu.domain.Coach;
 import menu.domain.Coaches;
+import menu.domain.parser.CannotEatMenusParser;
 import menu.domain.parser.CoachesParser;
 import menu.view.InputView;
 import menu.view.OutputView;
@@ -18,6 +21,9 @@ public class MenuController {
     public void run() {
         printRecommendationStartMessage();
         Coaches coaches = createCoaches();
+        for (Coach coach : coaches.getCoaches()) {
+
+        }
         printRecommendationEndMessage();
     }
 
@@ -25,6 +31,13 @@ public class MenuController {
         return InputUtil.retryOnException(() -> {
             String coachNames = inputView.readCoachNames();
             return CoachesParser.parseToCoaches(coachNames);
+        });
+    }
+
+    private List<String> readCannotEatMenusForCoach(Coach coach) {
+        return InputUtil.retryOnException(() -> {
+            String cannotEatMenus = inputView.readCannotEatMenusForCoach(coach.getName());
+            return CannotEatMenusParser.parseToCannotEatMenus(cannotEatMenus);
         });
     }
 
