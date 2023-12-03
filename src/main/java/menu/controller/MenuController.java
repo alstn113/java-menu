@@ -3,6 +3,7 @@ package menu.controller;
 import java.util.List;
 import menu.domain.Coach;
 import menu.domain.Coaches;
+import menu.domain.MenuRecommendation;
 import menu.domain.parser.CannotEatMenusParser;
 import menu.domain.parser.CoachesParser;
 import menu.view.InputView;
@@ -21,9 +22,9 @@ public class MenuController {
     public void run() {
         printRecommendationStartMessage();
         Coaches coaches = createCoaches();
-        for (Coach coach : coaches.getCoaches()) {
-
-        }
+        setCannotEatMenusForCoaches(coaches);
+        MenuRecommendation menuRecommendation = new MenuRecommendation(coaches);
+        printRecommendationResult(menuRecommendation);
         printRecommendationEndMessage();
     }
 
@@ -32,6 +33,13 @@ public class MenuController {
             String coachNames = inputView.readCoachNames();
             return CoachesParser.parseToCoaches(coachNames);
         });
+    }
+
+    private void setCannotEatMenusForCoaches(Coaches coaches) {
+        for (Coach coach : coaches.getCoaches()) {
+            List<String> cannotEatMenus = readCannotEatMenusForCoach(coach);
+            coach.setCannotEatMenus(cannotEatMenus);
+        }
     }
 
     private List<String> readCannotEatMenusForCoach(Coach coach) {
@@ -43,6 +51,11 @@ public class MenuController {
 
     private void printRecommendationStartMessage() {
         outputView.printRecommendationStartMessage();
+    }
+
+    private void printRecommendationResult(MenuRecommendation menuRecommendation) {
+        outputView.printRecommendationResult(menuRecommendation.getRecommendationCategories(),
+                menuRecommendation.getCoachRecommendationMenus());
     }
 
     private void printRecommendationEndMessage() {

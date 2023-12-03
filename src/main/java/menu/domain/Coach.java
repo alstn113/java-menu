@@ -1,6 +1,7 @@
 package menu.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import menu.exception.ErrorMessage;
 import menu.exception.InvalidInputException;
@@ -32,7 +33,7 @@ public class Coach {
     }
 
     public List<String> getCannotEatMenus() {
-        return cannotEatMenus;
+        return Collections.unmodifiableList(cannotEatMenus);
     }
 
     public void setCannotEatMenus(List<String> cannotEatMenus) {
