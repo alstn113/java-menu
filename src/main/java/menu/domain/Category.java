@@ -2,6 +2,8 @@ package menu.domain;
 
 import java.util.Arrays;
 import java.util.List;
+import menu.exception.ErrorMessage;
+import menu.exception.InvalidInputException;
 
 public enum Category {
     JAPANESE("일식", Arrays.asList("규동", "우동", "미소시루", "스시", "가츠동", "오니기리", "하이라이스", "라멘", "오코노미야끼")),
@@ -16,6 +18,15 @@ public enum Category {
     Category(String name, List<String> menus) {
         this.name = name;
         this.menus = menus;
+    }
+
+    public static void existMenuOrThrow(String menuName) {
+        for (Category category : Category.values()) {
+            if (category.menus.contains(menuName)) {
+                return;
+            }
+        }
+        throw new InvalidInputException(ErrorMessage.INVALID_MENU);
     }
 
     public String getName() {
