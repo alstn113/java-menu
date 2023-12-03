@@ -6,20 +6,20 @@ import java.util.List;
 import menu.exception.ErrorMessage;
 import menu.exception.InvalidInputException;
 
-public class CoachMealGroup {
-    private static final int MIN_COACHES = 2;
-    private static final int MAX_COACHES = 5;
+public class Coaches {
+    private static final int MIN_COACH_SIZE = 2;
+    private static final int MAX_COACH_SIZE = 5;
     private final List<Coach> coaches;
 
-    public CoachMealGroup(List<Coach> coaches) {
+    public Coaches(List<Coach> coaches) {
         validateCoachCount(coaches);
         this.coaches = new ArrayList<>(coaches);
     }
 
     private void validateCoachCount(List<Coach> coaches) {
         int coachCount = coaches.size();
-        if (coachCount < MIN_COACHES || coachCount > MAX_COACHES) {
-            throw new InvalidInputException(ErrorMessage.INVALID_COACH_COUNT);
+        if (coachCount < MIN_COACH_SIZE || coachCount > MAX_COACH_SIZE) {
+            throw new InvalidInputException(ErrorMessage.INVALID_COACH_SIZE);
         }
     }
 

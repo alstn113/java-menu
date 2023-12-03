@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class CoachMealGroupTest {
+class CoachesTest {
     @ParameterizedTest
     @ValueSource(ints = {2, 3, 4, 5})
     void 정상적인_생성(int coachCount) {
@@ -17,8 +17,8 @@ class CoachMealGroupTest {
             coaches.add(new Coach("코치" + i));
         }
 
-        CoachMealGroup coachMealGroup = new CoachMealGroup(coaches);
-        assertThat(coachMealGroup.getCoaches()).hasSize(coachCount);
+        Coaches Coaches = new Coaches(coaches);
+        assertThat(Coaches.getCoaches()).hasSize(coachCount);
     }
 
     @ParameterizedTest
@@ -29,7 +29,7 @@ class CoachMealGroupTest {
             coaches.add(new Coach("코치" + i));
         }
 
-        assertThatThrownBy(() -> new CoachMealGroup(coaches))
+        assertThatThrownBy(() -> new Coaches(coaches))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

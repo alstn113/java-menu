@@ -1,5 +1,6 @@
 package menu.view.util;
 
+import java.util.List;
 import java.util.function.Supplier;
 import menu.exception.ErrorMessage;
 import menu.exception.InvalidInputException;

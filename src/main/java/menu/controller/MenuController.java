@@ -13,5 +13,16 @@ public class MenuController {
     }
 
     public void run() {
+        printRecommendationStartMessage();
+
+        printRecommendationEndMessage();
+    }
+
+    private void printRecommendationStartMessage() {
+        outputView.printRecommendationStartMessage();
+    }
+
+    private void printRecommendationEndMessage() {
+        outputView.printRecommendationEndMessage();
     }
 }
